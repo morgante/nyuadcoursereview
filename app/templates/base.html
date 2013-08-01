@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://twitter.github.io/bootstrap/examples/hero.html -->
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>CourseReview @NYUAD</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Course Review Website @ NYUAD">
+		<meta name="author" content="Joe Jean, NYUAD class 2016">
+
+		<!-- Le styles -->
+		
+		
+		<link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
+		
+		<style type="text/css">
+		  body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		  }
+		</style>
+		<link href="{{ url_for('static', filename='bootstrap-responsive.css') }}" rel="stylesheet">
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		  <script src="../assets/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- Fav and touch icons -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.io/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.io/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.io/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="http://twitter.github.io/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
+	 </head>
+
+	<body>
+		<div class="navbar navbar-fixed-top">
+		  <div class="navbar-inner">
+			<div class="container">
+			  
+			  
+			  <div class="nav-collapse collapse">
+				<a class="brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo2.png') }}" /></a>
+				<ul class="nav pull-right">
+				  {% if g.user.is_authenticated() %}
+				  <li><a href="{{url_for('home')}}">Home</a></li>
+				  <li><a href="http://twitter.github.io/bootstrap/examples/hero.html#">About</a></li>
+				  <li><a href="{{url_for('user',netID=g.user.net_id)}}">My profile</a></li>
+				  <li><a href="{{url_for('logout')}}">Logout</a></li>
+				  {% else %}
+				  <li><a href="http://twitter.github.io/bootstrap/examples/hero.html#">About</a></li>
+				  <li><a href="{{ url_for('login') }}">Login</a></li>
+				  {% endif %}
+				  
+				</ul>
+				{% if g.user.is_authenticated() %}
+				<form class="navbar-form navbar-search form-search">
+				 <div class="input-append">
+					<input type="text" class="span4 search-query" placeholder="Search Course name or Professor name">
+					<button type="submit" class="btn">Search</button>
+				 </div>
+				</form>
+				{% endif %}
+			  </div><!--/.nav-collapse -->
+			  
+			</div>
+			
+		  </div>
+		</div>
+
+		<div class="container">
+			
+			{% with messages = get_flashed_messages(category_filter=["error"]) %}
+			{%if messages %}
+				
+				<div class="alert alert-error page-header">
+					
+					{% for message in messages %}
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Oops!</strong> {{message}}
+					{% endfor %}
+					
+				</div>
+				
+			{% endif %}
+			
+			{% endwith %}
+			
+			{% with messages = get_flashed_messages(category_filter=["success"]) %}
+			{%if messages %}
+				
+				<div class="alert alert-success page-header">
+					
+					{% for message in messages %}
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Yay!</strong> {{message}}
+					{% endfor %}
+					
+				</div>
+				
+			{% endif %}
+			{% endwith %}
+			
+			{% with messages = get_flashed_messages(category_filter=["info"]) %}
+			{%if messages %}
+				
+				<div class="alert alert-info page-header">
+					
+					{% for message in messages %}
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Heads up!</strong> {{message}}
+					{% endfor %}
+					
+				</div>
+				
+			{% endif %}
+			
+			{% endwith %}
+		
+		{% block content %}{% endblock %}
+		
+		
+		<footer>
+			<stron><hr>
+			<p>© Course Review @ NYUAD 2013. | Developed by <a href="mailto:jj1347@nyu.edu">Joe Jean '16</a> 
+			<a class="pull-right"href="#">Terms of Use</a>
+			</p></strong>
+		</footer>
+
+		</div> <!-- /container -->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		
+		<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+		<script src= "{{ url_for('static', filename='bootstrap.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		
+
+  
+
+	</body>
+</html>

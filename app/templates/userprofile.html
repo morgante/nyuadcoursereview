@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		
+		
+		<div class="hero-unit">
+			<h2>Welcome to your profile {{user.net_id}} </h2>
+		
+			<p>Number of Reviews Submitted : <span class="badge badge-inverse">{{reviews.total}}</span> </p>
+			
+		</div>
+      
+      <div class="row">
+        <div class="span9">
+			{% if reviews.total==0 %}
+				<p><strong>You haven't submitted any reviews yet</strong></p>
+			{% endif %}
+			
+			{% if reviews.total==1 %}
+				<h5> Your review</h5>
+			{% else %}
+				<h5> Your reviews</h5>
+			{% endif %}
+				<hr>
+			{% for review in reviews.items %}
+				<div class="media">
+					<a class="pull-left" href="#">
+					<img class="media-object" src="{{ user.avatar(64)}}" style="width:64px; height:64px; padding-right:5px;">
+					</a>
+					<div class="media-body">
+						<h6 class="media-heading">By {{user.net_id}} on <a href="{{url_for('reviews',courseid=review.course.id)}}">{{review.course.course_name}}</a>  <span class="badge badge-inverse">{{"{0:0.2f}".format(review.rating)}} / 5</span> <span class="pull-right">{{review.review_date}}</span></h6>
+							"{{review.review_comment}}" <br/>
+						<!--<span class="pull-right"><i class="icon-thumbs-up "></i> (0 like) <br></span> -->
+						
+						<a href="" class="btn btn-primary btn-small text-left"> <i class="icon-edit"> </i>Edit </a>
+						<a href="" class="btn btn-danger btn-small "> <i class="icon-remove"> </i>Delete</a>
+						<hr />
+						
+					
+					</div>
+					
+				</div>
+			{% endfor %}
+			
+			<ul class="pager">
+				{% if reviews.has_prev %}
+					<li class="previous">
+					<a href="{{url_for('user',page = reviews.prev_num, netID=user.net_id)}}">&larr; Newer Reviews</a>
+					</li>
+				{% else %}
+					<li class="previous disabled">
+					<a>&larr; Newer Reviews</a>
+					</li>
+				{% endif %}
+				{% if reviews.has_next %}
+					<li class="next">
+					<a href="{{url_for('user', page=reviews.next_num,netID=user.net_id)}}">Older Reviews &rarr;</a>
+					</li>
+				{% else %}
+					<li class="next disabled">
+					<a>Older Reviews &rarr;</a>
+					</li>
+				{% endif %}
+			</ul>
+			
+		  
+          
+       </div>
+        
+      </div>
+{% endblock %}
+      
+
+      

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div class="hero-unit">
+			
+		<h2 class="text-center error">Thank you {{user.netID}} </h2>
+		<p class="text-center">Your review was posted. Please click the button below to go back to the Homepage.</p>
+		<p class="text-center"><a href="{{ url_for('home') }}" class="btn btn-primary btn-large">Go to Homepage »</a></p>
+		
+	</div>
+
+{% endblock %}

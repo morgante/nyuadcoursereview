@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<div class="page-header">
+			
+		</div>
+
+    
+      <div class="row">
+        <div class="span3">
+          <h3>Courses by Major</h3>
+			  <ul class="unstyled">
+				{% for category in categories %}
+				<li><a href="{{url_for('coursesbymajor',catid=category.id)}}">{{category.category_name}} </a>({{category.courses_count()}})</li>
+				{% endfor %}
+			  </ul>
+			
+			<hr>                                          
+			<h3>Latest Reviews</h3>
+			{% for review in reviews %}
+			<p> By <strong>Anonymous</strong> on <a href="{{url_for('reviews',courseid=review.course.id)}}">{{review.course.course_name}}</a> <span class="badge badge-inverse"><small>{{"{0:0.2f}".format(review.rating)}} / 5</small></span>
+			<small>"{{review.review_comment}} "</small></p>
+			{% endfor %}
+        </div>
+		
+	
+        <div class="span9">
+          <h3> Most Rated Courses</h3>
+
+			<table class="table table-striped  table-bordered">
+				<thead>
+					<tr>
+					  <th>Course Name</th>
+					  <th>Total Reviews </th>
+					</tr>
+				</thead>
+				  <tbody>
+					{% for review, totalcomments in courses %}
+						<tr>
+						  <td><a href="{{url_for('reviews',courseid=review.course.id)}}"><strong>{{ review.course.course_name}}</strong></a> with <small> Prof {{review.course.professor[0].professor_name}}</small></td>
+						  <td><a href="{{url_for('reviews',courseid=review.course.id)}}">{{totalcomments}} Reviews</a></td>
+						</tr>
+					{% endfor %}
+					
+					
+					
+				  </tbody>		
+			</table>
+          
+       </div>
+        
+      </div>
+
+{% endblock %}

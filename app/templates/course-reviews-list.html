@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		
+		
+		<div class="hero-unit">
+			<h2>{{course.course_name}} <small>with {{course.professor[0].professor_name}}</small></h2>
+			<p><small>{{course.course_description}}</small></p>
+			<p>Overal Rating : <span class="badge badge-inverse"> {{"{0:0.2f}".format(avgrating)}} / 5</span> 
+			<small> 
+			{% if totalreviews <= 1%} 
+				({{totalreviews}} Review)
+			{% else %}
+				({{totalreviews}} Reviews)	
+			{% endif %}
+			</small></p>
+			<p class="text-left"><a href="{{url_for('write',courseid=course.id)}}" class="btn btn-primary btn-large"><i class="icon-pencil icon-white"></i> Write a Review</a></p>
+		</div>
+      
+      <div class="row">
+        <div class="span9">
+		{% if totalreviews==0 %}
+			<p><strong>No Reviews yet</strong></p>
+		
+		{% else %}
+			{% if totalreviews ==1 %}
+				<h5>{{totalreviews}} Review</h5>
+			{% else %}
+				<h5>{{totalreviews}} Reviews</h5>
+				
+			{% endif %}
+			  <hr>
+				{% for review in reviews.items %}
+				
+				{% include 'singlereview.html' %}
+				
+				{% endfor %}
+				
+				<ul class="pager">
+				{% if reviews.has_prev %}
+					<li class="previous">
+					<a href="{{url_for('reviews', page = reviews.prev_num, courseid=course.id)}}">&larr; Newer Reviews</a>
+					</li>
+				{% else %}
+					<li class="previous disabled">
+					<a>&larr; Newer Reviews</a>
+					</li>
+				{% endif %}
+				{% if reviews.has_next %}
+					<li class="next">
+					<a href="{{url_for('reviews', page = reviews.next_num, courseid=course.id)}}">Older Reviews &rarr;</a>
+					</li>
+				{% else %}
+					<li class="next disabled">
+					<a>Older Reviews &rarr;</a>
+					</li>
+				{% endif %}
+				</ul>
+		{% endif %}		
+          
+       </div>
+        
+      </div>
+{% endblock %}
+      
+
+      

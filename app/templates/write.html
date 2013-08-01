@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<br>
+		<div class="page-header">
+			<h2>Review for : {{course.course_name}} <small>with {{professor.professor_name}}</small><h2>
+			
+		</div>
+      
+      <div class="row">
+        <div class="span8 hero-unit">
+			<!-- form flash messages -->
+			<div class= "page-header">
+				
+						
+				{% for error in form.errors.rating %}
+				<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Oops!</strong> {{error}}
+				</div>
+				{% endfor %}
+						
+				
+				
+						
+				{% for error in form.errors.comment %}
+				<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Oops!</strong> {{error}}
+				</div>
+				{% endfor %}
+						
+				
+			</div>	<!-- end of flash messages -->
+				
+				
+			<form class="form-horizontal span7" action="" method="post" value="write">
+				 {{form.hidden_tag()}}
+				 
+				  <div class="control-group">
+						<label class="control-label" for="coursequality">Course Quality</label>
+						<div class="controls">
+							{{form.rating}}
+							
+						</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="inputEmail">Your Thoughts</label>
+					
+					<div class="controls">
+						{{form.comment(rows=13, class="input-block-level")}}
+
+					</div>
+				  </div>
+				  
+				  <div class="control-group">
+					
+					<div class="controls">
+					  <button type="submit" class="btn btn-primary btn-large">Submit Review</button>
+					</div>
+				  </div>
+			</form>
+          
+		
+		
+          
+        </div>
+        
+      </div>
+
+{% endblock %}

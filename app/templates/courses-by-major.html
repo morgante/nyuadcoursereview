@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<div class="page-header">
+			
+		</div>
+
+    
+      <div class="row">
+        <div class="span3">
+          <h3>Courses by Major</h3>
+			  <ul class="unstyled">
+				{% for category in categories %}
+				<li><a href="{{url_for('coursesbymajor',catid=category.id)}}">{{category.category_name}} </a>({{category.courses_count()}})</li>
+				{% endfor %}
+			  </ul>
+			
+	
+        </div>
+		
+	
+        <div class="span9">
+          <h3> {{category.category_name}} Courses <smal>({{category.courses_count()}})</small></h3>
+			{% if category.courses_count() ==0 %}
+				  <p><strong>There are no courses for this major yet</strong></p>
+			{% else %}
+			<table class="table table-striped  table-bordered">
+				<thead>
+					<tr>
+					  <th>Course Name</th>
+					  <th>Total Reviews </th>
+					</tr>
+				</thead>
+				  <tbody>
+				  
+						{% for c in category.courses %}
+							<tr>
+							  <td><a href="{{url_for('reviews',courseid=c.id)}}"><strong>{{ c.course_name}}</strong></a> with <small> Prof {{c.professor[0].professor_name}}</small></td>
+							  <td><a href="{{url_for('reviews',courseid=c.id)}}">{{c.totalreviews()}} Reviews</a></td>
+							</tr>
+						{% endfor %}
+			{% endif %}
+					
+					
+					
+				  </tbody>		
+			</table>
+          
+       </div>
+        
+      </div>
+
+{% endblock %}

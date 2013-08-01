@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+      <div class="hero-unit">
+		
+		
+        <h1>Welcome to Course Review <small>@ NYUAD</small></h1>
+        <p>This is a student-run website whose primary aim is to serve as a valuable tool for course selection. In order to view or post reviews please login by clicking on the link below.</p>
+        <p><a href="{{ url_for('login') }}" class="btn btn-primary btn-large">Login »</a></p>
+      </div>
+
+ {% endblock %}
